@@ -1,0 +1,34 @@
+@mixin sm-viewport {
+  @media (max-width: 703px) {
+    @content;
+  }
+}
+
+@mixin md-viewport {
+  @media (min-width: 704px) and (max-width: 1023px) {
+    @content;
+  }
+}
+@mixin lg-viewport {
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    @content;
+  }
+}
+
+@mixin media($keys...) {
+  @each $key in $keys {
+    @if $key == sm-viewport {
+      @include sm-viewport {
+        @content;
+      }
+    } @else if $key == md-viewport {
+      @include md-viewport {
+        @content;
+      }
+    } @else if $key == lg-viewport {
+      @include lg-viewport {
+        @content;
+      }
+    }
+  }
+}

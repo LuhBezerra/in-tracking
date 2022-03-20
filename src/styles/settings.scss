@@ -1,0 +1,24 @@
+@import 'reset.scss';
+@import 'config.scss';
+
+/*
+* BASIC SETUP
+*/
+:global(#root) {
+  min-height: inherit;
+}
+
+html,
+body {
+  @include themed {
+    background-color: theme($color-neutral-bg-lowest);
+    color: theme($color-neutral-text-high);
+  }
+
+  font-size: 62.5%; /* 62.5% of 16px = 10px */
+  text-rendering: optimizelegibility;
+  font-family: Inter, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
