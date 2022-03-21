@@ -1,0 +1,263 @@
+@import '../../../styles/config.scss';
+
+.wrapper {
+  display: grid;
+  grid-template: repeat(3, auto) / 1fr auto;
+  grid-template-areas: 'label optional' 'combobox combobox' 'helper-text helper-text';
+  grid-gap: 0.8rem;
+  align-items: center;
+  width: 100%;
+
+  .label {
+    grid-area: label;
+    font-size: $font-size-md;
+    color: $color-secondary-contrast;
+
+    &.visually-hidden {
+      @include visually-hidden;
+    }
+  }
+
+  .combobox-wrapper {
+    grid-area: combobox;
+  }
+
+  .helper-text-wrapper {
+    grid-area: helper-text;
+    display: flex;
+    align-items: center;
+
+    font-size: $font-size-sm;
+
+    color: $color-tertiary-contrast;
+
+    .helper-icon {
+      height: 1.6rem;
+      width: 1.6rem;
+      margin-right: 0.6rem;
+
+      fill: $color-feedback-error;
+    }
+
+    .helper-text-error {
+      color: $color-feedback-error;
+    }
+  }
+
+  &.with-start-icon {
+    .start-icon {
+      display: block;
+    }
+  }
+
+  // Size
+
+  &.small {
+    /* stylelint-disable */
+    :global(.combobox__value-container) {
+      padding: 1rem 1.4rem;
+    }
+
+    .start-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+      margin-right: 1.4rem;
+    }
+
+    .indicator-icon {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+
+    .clear-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  &.medium {
+    :global(.combobox__value-container) {
+      padding: 1.4rem 2rem;
+    }
+
+    .start-icon {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1.4rem;
+    }
+
+    .indicator-icon {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+
+    .clear-icon {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+  }
+
+  // States
+
+  &.error {
+    :global(.combobox__control) {
+      border: $border-width-md solid $color-feedback-error;
+
+      &:focus-within {
+        border: $border-width-md solid $color-feedback-error;
+      }
+    }
+  }
+}
+
+.combobox-wrapper {
+  .combobox__control {
+    border-radius: $border-radius-sm;
+    box-shadow: $drop-shadow-md;
+
+    background-color: $color-primary-bg;
+    border: $border-width-sm solid $color-tertiary-tint;
+
+    &:focus-within {
+      border: $border-width-md solid $color-secondary-contrast;
+    }
+
+    &:global(.combobox__control--menu-is-open) {
+      .indicator-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  :global(.combobox__value-container) {
+    display: flex;
+    align-items: center;
+  }
+
+  :global(.combobox__input-container) {
+    font-size: $font-size-md;
+    color: $color-secondary-contrast;
+  }
+
+  :global(.combobox__placeholder) {
+    font-size: $font-size-md;
+    color: $color-tertiary-contrast;
+  }
+
+  :global(.combobox__indicator-separator) {
+    display: none;
+  }
+
+  :global(.combobox__menu) {
+    border-radius: $border-radius-sm;
+    box-shadow: $drop-shadow-md;
+    margin: 0.8rem 0;
+
+    background-color: $color-primary-contrast;
+  }
+
+  :global(.combobox__menu-notice) {
+    text-align: start;
+
+    /* @include body-short-md;
+    @include themed {
+      color: theme($color-neutral-text-highest);
+    } */
+  }
+
+  :global(.combobox__value-container--has-value) {
+    /* @include body-short-md;
+    @include themed {
+      color: theme($color-neutral-text-highest);
+    } */
+  }
+
+  :global(.combobox__single-value) {
+    max-width: 92%;
+    /* @include themed {
+      color: theme($color-neutral-text-highest);
+    } */
+  }
+
+  :global(.combobox__group) {
+    margin-bottom: 0.8rem;
+
+    /* @include themed {
+      border-bottom: $border-width-thin solid theme($color-neutral-bg-high);
+    }
+ */
+    :global(.combobox__option) {
+      padding-left: 2rem;
+    }
+  }
+
+  :global(.combobox__group-heading) {
+    margin-bottom: 0.8rem;
+    text-transform: capitalize;
+
+    /* @include subtitle-sm;
+    @include themed {
+      color: theme($color-neutral-text-high);
+    } */
+  }
+
+  :global(.combobox__option) {
+    display: flex;
+    align-items: center;
+    border-radius: $border-radius-sm;
+    margin: 0 0.8rem;
+    width: 97.2%;
+
+    /* @include body-short-md;
+    @include themed {
+      color: theme($color-neutral-text-highest);
+    } */
+
+    .option-label {
+      width: 100%;
+    }
+
+    .option-end-icon {
+      display: none;
+      width: 2rem;
+      height: 2rem;
+      margin-left: 1.2rem;
+
+      /* @include themed {
+        fill: theme($color-primary-brand-base);
+      } */
+    }
+
+    &:global(.combobox__option--is-focused) {
+      background: transparent;
+     /*  @include themed {
+        border: $border-width-thick solid theme($color-primary-brand-base);
+      } */
+
+      &:hover {
+        /* @include themed {
+          background-color: theme($color-neutral-bg-low);
+          border: none;
+        } */
+      }
+    }
+
+    &:global(.combobox__option--is-selected) {
+      background-color: transparent;
+
+      .option-end-icon {
+        display: block;
+      }
+    }
+  }
+}
+/* stylelint-enable */
+
+.indicator-icon {
+  fill: $color-secondary-contrast;
+}
+
+.clear-icon {
+  fill: $color-secondary-contrast;
+  
+}
