@@ -1,11 +1,14 @@
-import React from 'react';
+import React from 'react'
+import Home from './pages/home'
+
+import './styles/settings.scss'
 
 function App() {
   return (
-    <main className="App">
-      App
+    <main>
+      <Home />
     </main>
-  );
+  )
 }
 
-export default App;
+export default App

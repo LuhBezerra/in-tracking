@@ -1,0 +1,26 @@
+@import '../../styles/config';
+
+.home-wrapper {
+  display: grid;
+  grid-template: auto 1fr / minmax(12rem, auto) minmax(auto, $max-desktop-width) minmax(12rem, auto);
+  grid-template-areas:
+    'header header header'
+    '. content .';
+
+  .header {
+    grid-area: header;
+  }
+
+  .content {
+    grid-area: content;
+    overflow: hidden;
+    padding: 2.6rem;
+    margin-top: 5rem;
+    background-color: $color-primary-contrast;
+    box-shadow: 0 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.08);
+    border-radius: $border-radius-lg;
+
+    // TODO: remove height (MOCK)
+    height: 50rem;
+  }
+}
