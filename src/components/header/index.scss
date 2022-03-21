@@ -1,0 +1,80 @@
+@import '../../styles/config.scss';
+
+.header {
+  display: grid;
+  grid-template: 1fr auto / minmax(12rem, auto) minmax(auto, $max-desktop-width) minmax(12rem, auto);
+  grid-template-areas:
+    '. logo .'
+    '. options .';
+  justify-items: center;
+  height: 12.4rem;
+  background-color: $color-primary;
+
+  .logo {
+    grid-area: logo;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+
+    fill: $color-primary-contrast;
+
+    .logo-text {
+      font-size: $font-size-xxxl;
+      color: $color-primary-contrast;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  .options-container {
+    grid-area: options;
+    display: grid;
+    grid-template: 1fr / repeat(5, auto) 1fr;
+    grid-template-areas: 'time category status divider clear add';
+    width: 100%;
+
+    .time-combobox {
+      grid-area: time;
+      padding-right: 1rem;
+      margin-bottom: -2.5rem;
+    }
+
+    .category-combobox {
+      grid-area: category;
+      margin-bottom: -2.5rem;
+    }
+
+    .divider {
+      grid-area: divider;
+      width: 0.3rem;
+      height: 3.4rem;
+      background: $color-primary-contrast;
+      margin: 0 2rem;
+      margin-top: 3.4rem;
+      box-shadow: $drop-shadow-md;
+    }
+
+    .clear-button {
+      grid-area: clear;
+      width: 13rem;
+
+      margin-top: 3rem;
+    }
+
+    .add-button {
+      grid-area: add;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: $border-radius-full;
+      height: 5rem;
+      width: 5rem;
+      margin-top: 2.5rem;
+      justify-self: flex-end;
+    }
+  }
+}
+
+.plus-icon {
+  stroke: $color-primary-contrast;
+}
