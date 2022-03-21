@@ -1,3 +1,5 @@
+$max-desktop-width: 1200px;
+
 @mixin sm-viewport {
   @media (max-width: 703px) {
     @content;
@@ -14,6 +16,7 @@
     @content;
   }
 }
+
 
 @mixin media($keys...) {
   @each $key in $keys {

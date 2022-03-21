@@ -10,10 +10,7 @@
 
 html,
 body {
-  @include themed {
-    background-color: theme($color-neutral-bg-lowest);
-    color: theme($color-neutral-text-high);
-  }
+  background: $color-primary-bg;
 
   font-size: 62.5%; /* 62.5% of 16px = 10px */
   text-rendering: optimizelegibility;
