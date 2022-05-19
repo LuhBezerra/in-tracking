@@ -2,14 +2,26 @@
 
 .button-wrapper {
   width: 100%;
-  height: 4rem;
   border-radius: $border-radius-md;
-  color: $color-primary-contrast;
-  background-color: $color-secondary;
   font-size: $font-size-md;
   cursor: pointer;
+  padding: 1rem 2rem;
+}
+
+.primary {
+  color: $color-primary-contrast;
+  background-color: $color-secondary;
 
   &:hover {
     background-color: $color-secondary-shade;
+  }
+}
+
+.secondary {
+  color: $color-secondary-contrast;
+  background-color: transparent;
+
+  &:hover {
+    color: $color-secondary-shade;
   }
 }

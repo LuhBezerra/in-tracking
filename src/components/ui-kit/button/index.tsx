@@ -6,11 +6,12 @@ import './index.scss'
 type ButtonProps = {
   className: string;
   type?: 'button' | 'submit' | 'reset'
+  theme?: 'primary' | 'secondary'
 }
 
-export const Button: FC<ButtonProps> = ({ className, children, type, ...restProps }) => {
+export const Button: FC<ButtonProps> = ({ className, children, type, theme='primary', ...restProps }) => {
   return (
-    <button className={classnames('button-wrapper', className)} {...restProps}>
+    <button className={classnames('button-wrapper', [theme], className)} {...restProps}>
       {children}
     </button>
   )
