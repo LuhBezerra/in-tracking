@@ -1,0 +1,26 @@
+@import '../../../styles/config.scss';
+
+.input-wrapper {
+  display: grid;
+  grid-template: repeat(2, auto) / 1fr;
+  grid-row-gap: 0.6rem;
+
+  .label {
+    color: $color-secondary-contrast;
+    font-size: 1.4rem;
+  }
+
+  .input {
+    background: $color-primary-contrast;
+    border: 0.1rem solid $color-tertiary-tint;
+    border-radius: $border-radius-md;
+
+    color: $color-secondary-contrast;
+    font-size: 1.6rem;
+    padding: 1rem 1.7rem;
+
+    &.error {
+      border: solid 0.1rem red;
+    }
+  }
+}
