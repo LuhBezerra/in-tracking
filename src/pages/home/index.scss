@@ -13,14 +13,72 @@
 
   .content {
     grid-area: content;
+    display: grid;
+    grid-template: repeat(2, auto) / repeat(2, 1fr);
+    grid-template-areas:
+      'chart tasks'
+      'categories tasks';
+    row-gap: 3rem;
     overflow: hidden;
     padding: 2.6rem;
-    margin-top: 5rem;
+    margin: 5rem 0;
     background-color: $color-primary-contrast;
     box-shadow: 0 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.08);
     border-radius: $border-radius-lg;
 
-    // TODO: remove height (MOCK)
-    height: 50rem;
+    .chart {
+      grid-area: chart;
+      display: flex;
+      justify-content: center;
+
+      .doughnut {
+        width: 40rem !important; 
+        height: 40rem !important; 
+      }
+    }
+
+    .categories {
+      grid-area: categories;
+
+      .title {
+        font-weight: 600;
+        font-size: 2.4rem;
+        line-height: 3.6rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .tasks {
+      grid-area: tasks;
+
+      .title {
+        font-weight: 600;
+        font-size: 2.4rem;
+        line-height: 3.6rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+.dot {
+  height: 1rem;
+  width: 1rem;
+  background: $color-blue;
+  border-radius: 50%;
+}
+
+.category-wrapper {
+  display: grid;
+  grid-template: 1fr / auto 1fr;
+  column-gap: 2rem;
+  align-items: center;
+  margin-left: 3rem;
+  margin-bottom: 1rem;;
+
+  .category-title {
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: $color-secondary-contrast;
   }
 }
