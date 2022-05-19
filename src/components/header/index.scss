@@ -7,15 +7,18 @@
     '. logo .'
     '. options .';
   justify-items: center;
-  height: 12.4rem;
+  height: 10.8rem;
   background-color: $color-primary;
+  box-sizing: border-box;
 
-  .logo {
+  .header-content {
+    position: relative;
     grid-area: logo;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+    margin: 2rem 0 1rem;
+    width: 100%;
 
     fill: $color-primary-contrast;
 
@@ -23,6 +26,17 @@
       font-size: $font-size-xxxl;
       color: $color-primary-contrast;
       font-weight: $font-weight-bold;
+    }
+
+    .user-menu {
+      position: absolute;
+      right: 0;
+      width: auto;
+
+      .user-menu-text {
+        font-size: 1.6rem;
+        color: $color-primary-contrast;
+      }
     }
   }
 
@@ -32,16 +46,15 @@
     grid-template: 1fr / repeat(5, auto) 1fr;
     grid-template-areas: 'time category status divider clear add';
     width: 100%;
+    align-items: center;
 
-    .time-combobox {
+    .time {
       grid-area: time;
-      padding-right: 1rem;
-      margin-bottom: -2.5rem;
+      padding-right: 2rem;
     }
 
-    .category-combobox {
+    .category {
       grid-area: category;
-      margin-bottom: -2.5rem;
     }
 
     .divider {
@@ -50,15 +63,12 @@
       height: 3.4rem;
       background: $color-primary-contrast;
       margin: 0 2rem;
-      margin-top: 3.4rem;
       box-shadow: $drop-shadow-md;
     }
 
     .clear-button {
       grid-area: clear;
       width: 13rem;
-
-      margin-top: 3rem;
     }
 
     .add-button {
@@ -69,12 +79,39 @@
       border-radius: $border-radius-full;
       height: 5rem;
       width: 5rem;
-      margin-top: 2.5rem;
       justify-self: flex-end;
+      padding: 0;
     }
   }
 }
 
 .plus-icon {
-  stroke: $color-primary-contrast;
+  width: 2rem;
+  height: 2rem;
+  fill: $color-primary-contrast;
+}
+
+.tasks-modal {
+  display: grid;
+  row-gap: 2rem;
+  width: 50rem;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  .title {
+    color: $color-secondary-contrast;
+
+    font-size: 2rem;
+    line-height: 3.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .button {
+    width: auto;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
