@@ -1,0 +1,49 @@
+@import '../../../styles/config.scss';
+
+.menu-wrapper {
+  width: 4rem;
+  height: 2.2rem;
+  cursor: pointer;
+
+  .menu-icon {
+    width: 4rem;
+    height: 100%;
+  }
+
+  .menu-options {
+    color: $color-secondary-contrast;
+    fill: $color-secondary-contrast;
+  }
+}
+
+.menu-list {
+  border-radius: 0.4rem;
+  background: white;
+  box-shadow: 0 0.3rem 0.8rem 0.1rem rgba(0, 0, 0, 0.08);
+  padding: 0.8rem 0;
+  border: none;
+  color: $color-secondary-contrast;
+  fill: $color-secondary-contrast;
+
+  .menu-item {
+    padding: 1.4rem;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: $color-secondary-contrast;
+    &-content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      &-icon {
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 1.6rem;
+      }
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+}
