@@ -1,0 +1,70 @@
+@import '../../../styles/config.scss';
+
+.dropdown-wrapper {
+  .dropdown {
+    .label {
+      color: $color-secondary-contrast;
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: $color-primary-contrast;
+      border: 0.1rem solid $color-tertiary-tint;
+      border-radius: $border-radius-md;
+      height: 4rem;
+      width: 100%;
+      font-weight: 400;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      color: var(--gray-20);
+      padding: 0.8rem 4rem 0.8rem 1.2rem;
+      grid-gap: 0.8rem;
+
+      .icon {
+        position: absolute;
+        right: 1.2rem;
+        width: 1.4rem;
+        height: 1.4rem;
+        fill: $color-secondary-contrast;
+
+        &.open {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .options-container {
+    box-shadow: 0 0.3rem 0.8rem 0.1rem rgba(0, 0, 0, 0.08);
+    border-radius: 0.4rem;
+    background: white;
+    padding: 0.8rem 0;
+    margin-top: 0.8rem;
+    position: absolute;
+    width: fit-content !important;
+    z-index: 1;
+    display: flex !important;
+    flex-direction: column !important; 
+
+    .option {
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      color: $color-secondary-contrast;
+      padding: 1.4rem 2.4rem;
+
+      &.selected {
+        font-weight: 600;
+        color: $color-secondary;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+}
