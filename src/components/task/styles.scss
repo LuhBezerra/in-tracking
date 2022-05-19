@@ -1,0 +1,40 @@
+@import '../../styles/config';
+
+.task-wrapper {
+  display: grid;
+  grid-template: repeat(2, 1fr) / auto 1fr repeat(2, auto);
+  grid-template-areas:
+    'dot title status more-actions'
+    'description description status more-actions';
+  align-items: center;
+  column-gap: 2rem;
+  margin-left: 3rem;
+  margin-bottom: 1rem;;
+
+  .task-title {
+    grid-area: title;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: $color-secondary-contrast;
+  }
+
+  .description {
+    grid-area: description;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: $color-tertiary-contrast;
+  }
+
+  .status {
+    grid-area: status;
+    background: $color-blue;
+    font-size: 1.2rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.8rem;
+    color: $color-secondary-contrast;
+  }
+
+  .more-icon {
+    grid-area: more-actions;
+  }
+}
