@@ -1,20 +1,38 @@
-import type { FC } from 'react'
+import { useMemo } from 'react'
+import type { FC, ButtonHTMLAttributes } from 'react'
 import classnames from 'classnames'
 
 import './index.scss'
+import { Link } from 'react-router-dom'
 
-type ButtonProps = {
-  className: string;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string
   type?: 'button' | 'submit' | 'reset'
   theme?: 'primary' | 'secondary'
+  to?: string
 }
 
-export const Button: FC<ButtonProps> = ({ className, children, type, theme='primary', ...restProps }) => {
-  return (
-    <button className={classnames('button-wrapper', [theme], className)} {...restProps}>
-      {children}
-    </button>
-  )
+export const Button: FC<ButtonProps> = ({
+  className,
+  children,
+  type,
+  to,
+  theme = 'primary',
+  ...restProps
+}) => {
+  const renderButton = useMemo(() => {
+    if (to) {
+      return <Link className={classnames('button-wrapper', [theme], className)} to={to}>{children}</Link>
+    }
+
+    return (
+      <button className={classnames('button-wrapper', [theme], className)} {...restProps}>
+        {children}
+      </button>
+    )
+  }, [children, className, restProps, theme, to])
+
+  return renderButton
 }
 
 export default Button

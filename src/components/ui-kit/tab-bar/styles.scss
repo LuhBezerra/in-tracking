@@ -1,0 +1,57 @@
+@import '../../../styles/config.scss';
+
+.tab-navigation {
+  .container {
+    display: flex;
+    height: 5rem;
+
+    .item {
+      align-items: center;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.15rem;
+      background: var(--transparent);
+      border: none;
+      cursor: pointer;
+      border-bottom: 0.1rem solid rgba(255, 255, 255, 0);
+      white-space: nowrap;
+      color: $color-primary-contrast;
+      text-decoration: none;
+
+      &:hover {
+        border-bottom: 0.4rem solid rgba(232, 47, 114, 0.32);
+      }
+
+      &.active {
+        border-bottom: 0.4rem solid $color-secondary;
+      }
+
+      &:focus {
+        outline-width: 0.25rem;
+        outline-color: $color-primary-bg;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      .start-icon-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        margin-right: 1.2rem;
+
+        .start-icon {
+          width: 0.8rem;
+          height: 1rem;
+        }
+      }
+    }
+
+    & > .item ~ .item {
+      margin-left: 4.8rem;
+    }
+  }
+}

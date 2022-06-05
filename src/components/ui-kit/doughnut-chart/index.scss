@@ -1,0 +1,37 @@
+@import '../../../styles/config';
+
+.chart {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .title {
+    text-align: center;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    margin-bottom: 1rem;
+  }
+
+  .doughnut-wrapper {
+    display: flex;
+    justify-content: center;
+
+    .total-label {
+      position: absolute;
+      font-size: $font-size-xxxl;
+      font-weight: $font-weight-semibold;
+      top: 48%;
+      text-align: center;
+
+      &.has-only-chart-label {
+        top: 42%;
+      }
+    }
+
+    .doughnut {
+      width: 32rem !important;
+      height: 32rem !important;
+    }
+  }
+}

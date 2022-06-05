@@ -1,9 +1,25 @@
 import React, { useRef, useCallback, useEffect, useMemo, useState } from 'react'
 import classnames from 'classnames'
+import type { ChangeEvent } from 'react'
 
 import { ArrowDownIcon } from 'assets/icons'
 
 import './styles.scss'
+
+type SelectOption = { value: string; label: string }
+
+
+type SelectProps = {
+  options: SelectOption[]
+  onChange: (event: ChangeEvent<HTMLLIElement>) => void
+  value: any
+  defaultValue: any
+  label: any
+  className: any
+  placeholder: any
+  labelClassName: any
+  disabled: any
+}
 
 export const Select = ({
   options,
@@ -15,7 +31,7 @@ export const Select = ({
   placeholder,
   labelClassName,
   disabled,
-}) => {
+}: SelectProps) => {
   const optionsRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState(
@@ -73,7 +89,7 @@ export const Select = ({
               role="option"
               aria-selected={selected === index}
               className={classnames('option', {
-                'selected': selected === index,
+                selected: selected === index,
               })}
               key={item.value}
               onClick={onClick(index)}
