@@ -2,13 +2,64 @@
 
 .home-wrapper {
   display: grid;
-  grid-template: auto 1fr / minmax(12rem, auto) minmax(auto, $max-desktop-width) minmax(12rem, auto);
+  grid-template: auto auto 1fr / minmax(12rem, auto) minmax(auto, $max-desktop-width) minmax(12rem, auto);
   grid-template-areas:
     'header header header'
+    '. options .'
     '. content .';
 
   .header {
     grid-area: header;
+  }
+
+  .options-container {
+    grid-area: options;
+    display: grid;
+    grid-template: 1fr / repeat(5, auto) 1fr;
+    grid-template-areas: 'time status category divider clear add';
+    width: 100%;
+    align-items: center;
+    margin-top: 2rem;;
+
+    .time {
+      grid-area: time;
+      padding-right: 1rem;
+    }
+
+    .status {
+      grid-area: status;
+      padding-right: 1rem;
+    }
+
+    .category {
+      grid-area: category;
+    }
+
+    .divider {
+      grid-area: divider;
+      width: 0.3rem;
+      height: 3.4rem;
+      background: $color-primary-contrast;
+      margin: 0 2rem;
+      box-shadow: $drop-shadow-md;
+    }
+
+    .clear-button {
+      grid-area: clear;
+      width: 13rem;
+    }
+
+    .add-button {
+      grid-area: add;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: $border-radius-full;
+      height: 5rem;
+      width: 5rem;
+      justify-self: flex-end;
+      padding: 0;
+    }
   }
 
   .content {
@@ -30,6 +81,7 @@
       grid-area: chart;
       display: flex;
       justify-content: center;
+      align-items: center;
 
       .doughnut {
         width: 40rem !important; 
@@ -38,13 +90,30 @@
     }
 
     .categories {
+      display: grid;
       grid-area: categories;
+      grid-template: auto 1fr / auto 2rem;
+      column-gap: 2rem;
+      grid-template-areas: 
+        'title add-button'
+        'content content';
 
       .title {
+        grid-area: title;
         font-weight: 600;
         font-size: 2.4rem;
         line-height: 3.6rem;
         margin-bottom: 1rem;
+      }
+
+      .add-category {
+        grid-area: add-button;
+        fill: $color-secondary-contrast;
+        cursor: pointer;
+
+        &:hover {
+          fill: black;
+        }
       }
     }
 
@@ -61,24 +130,10 @@
   }
 }
 
-.dot {
-  height: 1rem;
-  width: 1rem;
-  background: $color-blue;
-  border-radius: 50%;
-}
-
-.category-wrapper {
+.task-modal {
   display: grid;
-  grid-template: 1fr / auto 1fr;
-  column-gap: 2rem;
-  align-items: center;
-  margin-left: 3rem;
-  margin-bottom: 1rem;;
-
-  .category-title {
-    font-size: 1.6rem;
-    line-height: 2rem;
-    color: $color-secondary-contrast;
-  }
+  row-gap: 2rem;
+  width: 50rem;
+  padding: 2rem;
+  box-sizing: border-box;
 }

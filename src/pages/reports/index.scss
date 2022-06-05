@@ -1,0 +1,32 @@
+@import '../../styles/config';
+
+.reports-wrapper {
+  display: grid;
+  grid-template: auto 1fr / minmax(12rem, auto) minmax(auto, $max-desktop-width) minmax(12rem, auto);
+  grid-template-areas: '. download-button .' '. content .';
+
+  .download-button {
+    grid-area: download-button;
+    width: fit-content;
+    justify-self: flex-end;
+    margin-top: 2rem;
+  }
+
+  .content {
+    grid-area: content;
+    display: grid;
+    grid-template: 1fr / repeat(2, 1fr);
+    row-gap: 3rem;
+    overflow: hidden;
+    padding: 2.6rem;
+    margin: 5rem 0;
+    background-color: $color-primary-contrast;
+    box-shadow: 0 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.08);
+    border-radius: $border-radius-lg;
+
+    .bar-chart {
+      width: 100% !important;
+      height: -webkit-fill-available !important;
+    }
+  }
+}

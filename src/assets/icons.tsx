@@ -6,4 +6,5 @@ export {ReactComponent as CheckIcon} from './check.svg';
 export {ReactComponent as PlusIcon} from './plus.svg';
 export {ReactComponent as MoreIcon} from './more.svg';
 export {ReactComponent as CloseIcon} from './close.svg';
+export {ReactComponent as EditIcon} from './edit.svg';
 export {ReactComponent as ArrowDownIcon} from './arrow-down.svg';

@@ -1,0 +1,83 @@
+@import '../../styles/config';
+
+.login-wrapper {
+  display: grid;
+  grid-template: 1fr / minmax(12rem, auto) minmax(auto, $max-desktop-width) minmax(12rem, auto);
+  grid-template-areas: '. login .';
+  background: $color-primary;
+  width: 100vw;
+  height: 100vh;
+  justify-items: center;
+  align-items: center;
+
+  .login-content {
+    width: 42rem;
+    height: fit-content;
+    grid-area: login;
+    background: $color-primary-bg;
+    border-radius: $border-radius-lg;
+    padding: 4rem;
+    box-sizing: border-box;
+    display: grid;
+    grid-template: repeat(6, auto) / repeat(2, 1fr);
+    grid-template-areas:
+      'logo logo'
+      'name name'
+      'email email'
+      'password password'
+      'sign-up login'
+      'forgot-password forgot-password';
+    justify-items: center;
+
+    .logo {
+      grid-area: logo;
+      display: flex;
+      font-size: $font-size-xxxl;
+      color: $color-secondary-contrast;
+      font-weight: $font-weight-bold;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .name {
+      grid-area: name;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    .email {
+      grid-area: email;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    .password {
+      grid-area: password;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+
+    .back {
+      grid-area: sign-up;
+      height: fit-content;
+    }
+
+    .login {
+      grid-area: login;
+      height: fit-content;
+    }
+
+    .forgot-password {
+      grid-area: forgot-password;
+      text-decoration: none;
+      font-size: $font-size-sm;
+      color: $color-secondary-contrast;
+      margin-top: 2rem;
+      cursor: pointer;
+
+      &:hover {
+        color: black;
+      }
+    }
+  }
+}

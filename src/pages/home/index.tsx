@@ -1,17 +1,39 @@
-import React from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
+import { PlusIcon } from 'assets/icons'
+import { Button, Select } from 'components/ui-kit'
 
-import { Header, TaskCard } from 'components'
+import { CategoryCard, TaskCard } from 'components'
+import { useToggle } from 'hooks/use-toggle'
 
 import './index.scss'
+import { CategoryModal, TaskModal } from 'components/modal-kit'
 
 ChartJS.register(ArcElement, Tooltip)
 
 const TASKS_MOCK = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+
+const VALUE_MOCK = [
+  { value: 'lorem ipsum', label: 'Lorem ipsum' },
+  { value: 'lorem ipsum', label: 'Lorem ipsum' },
+]
+
 export const Home = () => {
+  const [isAddTaskModalOpen, onToggleAddTaskModal] = useToggle()
+  const [isCategoryModalOpen, onToggleCategoryModal] = useToggle()
+
   const data = {
+    legend: {
+      display: false,
+    },
     labels: TASKS_MOCK,
+    options: {
+      plugins: {
+          legend: {
+              display: false
+          },
+      }
+  },
     datasets: [
       {
         label: '# of Votes',
@@ -29,19 +51,37 @@ export const Home = () => {
 
   return (
     <section className="home-wrapper">
-      <Header className="header" />
+      <div className="options-container">
+        <Select className="time" placeholder="Hoje" options={VALUE_MOCK} defaultValue={'aaa'} />
+        <Select className="status" placeholder="Status" options={VALUE_MOCK} defaultValue={'aaa'} />
+        <Select
+          className="category"
+          placeholder="Categoria"
+          options={VALUE_MOCK}
+          defaultValue={'aaa'}
+        />
+        <span className="divider" />
+        <Button className="clear-button" type="button">
+          Limpar
+        </Button>
+        <Button className="add-button" type="button" onClick={onToggleAddTaskModal as VoidFunction}>
+          <PlusIcon className="plus-icon" />
+        </Button>
+      </div>
       <div className="content">
         <div className="chart">
           <Doughnut className="doughnut" data={data} />
         </div>
         <div className="categories">
           <p className="title">Categorias</p>
-          {TASKS_MOCK.map(category => (
-            <div className="category-wrapper">
-              <span className="dot" />
-              <p className="category-title">lorem ipsum</p>
-            </div>
-          ))}
+          <button className="add-category" onClick={onToggleCategoryModal as VoidFunction}>
+            <PlusIcon />
+          </button>
+          <div className="categories-content">
+            {TASKS_MOCK.map(category => (
+              <CategoryCard />
+            ))}
+          </div>
         </div>
         <div className="tasks">
           <p className="title">Tarefas</p>
@@ -50,6 +90,18 @@ export const Home = () => {
           ))}
         </div>
       </div>
+      {isAddTaskModalOpen && (
+        <TaskModal
+          onClose={onToggleAddTaskModal as VoidFunction}
+          onConfirm={onToggleAddTaskModal as VoidFunction}
+        />
+      )}
+      {isCategoryModalOpen && (
+        <CategoryModal
+          onClose={onToggleCategoryModal as VoidFunction}
+          onConfirm={onToggleCategoryModal as VoidFunction}
+        />
+      )}
     </section>
   )
 }
