@@ -1,0 +1,36 @@
+@import '../../styles/config';
+
+.category-wrapper {
+  display: grid;
+  grid-template: 1fr / auto 1fr 4rem;
+  grid-template-areas: 'dot title edit-button';
+  column-gap: 2rem;
+  align-items: center;
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+
+  .dot {
+    grid-area: dot;
+    height: 1rem;
+    width: 1rem;
+    background: $color-blue;
+    border-radius: 50%;
+  }
+
+  .category-title {
+    grid-area: title;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: $color-secondary-contrast;
+  }
+
+  .edit-button {
+    grid-area: edit-button;
+    fill: $color-secondary-contrast;
+    cursor: pointer;
+
+    &:hover {
+      fill: black;
+    }
+  }
+}

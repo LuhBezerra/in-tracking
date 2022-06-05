@@ -1,0 +1,9 @@
+@import '../../../styles/config';
+
+.task-modal {
+  display: grid;
+  row-gap: 2rem;
+  width: 50rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}

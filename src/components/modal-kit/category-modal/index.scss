@@ -1,0 +1,19 @@
+@import '../../../styles/config';
+
+.category-modal {
+  width: 50rem;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+
+    .color {
+      width: 6rem;
+    }
+
+    .category {
+      margin-left: 1rem;
+      width: 100%;
+    }
+  }
+}
