@@ -10,13 +10,14 @@ type Type = 'textarea' | 'input' | 'color'
 
 type Mask = 'date'
 
+export type InputOnChangeEventType = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
 interface InputProps {
   className?: string
   inputClassName?: string
   id?: string
   label?: string
   value?: string
-  onChange?: (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void
+  onChange?: (event: InputOnChangeEventType) => void
   error?: string
   type?: Type
   mask?: Mask
