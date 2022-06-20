@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  box-sizing: border-box;
 
   .title {
     text-align: center;
@@ -16,12 +17,13 @@
   .doughnut-wrapper {
     display: flex;
     justify-content: center;
+    box-sizing: border-box;
 
     .total-label {
       position: absolute;
       font-size: $font-size-xxxl;
       font-weight: $font-weight-semibold;
-      top: 48%;
+      top: 54%;
       text-align: center;
 
       &.has-only-chart-label {

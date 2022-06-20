@@ -1,30 +1,42 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
-import { Status } from "types/redux";
-import { getStateStatus } from "utils/status-state";
+import { Status } from 'types/redux'
+import { getStateStatus } from 'utils/status-state'
 
-import { signUp } from "./actions";
+import { logIn, logOut, signUp } from './actions'
 
 export interface Auth {
-    token?: string;
-    status: Status;
-  }
-  
-  const initialState: Auth = {
-    token: undefined,
-    status: 'idle',
-  };
+  token?: string | null
+  status: Status
+}
 
-export const auth = createSlice({
-  name: "auth",
+const initialState: Auth = {
+  token: undefined,
+  status: 'idle',
+}
+
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.token = action.payload;
+        state.status = 'idle'
+        localStorage.setItem('token', action.payload.token)
       })
-      getStateStatus(builder, signUp);
+      .addCase(logIn.fulfilled, (state, action) => {
+        state.status = 'idle'
+        localStorage.setItem('token', action.payload.token)
+      })
+      .addCase(logOut.fulfilled, (state, action) => {
+        state.status = 'idle'
+        localStorage.removeItem('token')
+      })
+    getStateStatus(builder, signUp)
+    getStateStatus(builder, logIn)
+    getStateStatus(builder, logOut)
   },
-}).reducer;
+})
+
+export const auth = authSlice.reducer

@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import type { ChangeEvent } from 'react'
 // @ts-ignore
 import ReactInputDateMask from 'react-input-date-mask'
@@ -10,14 +10,16 @@ type Type = 'textarea' | 'input' | 'color'
 
 type Mask = 'date'
 
-export type InputOnChangeEventType = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+export type InputOnChangeEventType =
+  | ChangeEvent<HTMLInputElement>
+  | ChangeEvent<HTMLTextAreaElement>
 interface InputProps {
   className?: string
   inputClassName?: string
   id?: string
   label?: string
   value?: string
-  onChange?: (event: InputOnChangeEventType) => void
+  onChange: (event: InputOnChangeEventType) => void
   error?: string
   type?: Type
   mask?: Mask
@@ -37,6 +39,18 @@ export const Input = ({
   name,
   ...inputProps
 }: InputProps) => {
+  const onChangeDate = useCallback(
+    value => {
+      onChange({
+        target: {
+          /* @ts-ignore */
+          name,
+          value,
+        },
+      })
+    },
+    [name, onChange]
+  )
   const renderInput = useMemo(() => {
     if (type === 'textarea') {
       return (
@@ -67,11 +81,11 @@ export const Input = ({
     if (mask === 'date') {
       return (
         <ReactInputDateMask
-          mask="dd/mm/yyyy"
+          mask="dd/mm"
           className="input"
           name={name}
           value={value}
-          onChange={onChange}
+          onChange={onChangeDate}
           showMaskOnHover={true}
         />
       )
@@ -87,7 +101,8 @@ export const Input = ({
         {...inputProps}
       />
     )
-  }, [type, mask, onChange, id, inputProps, inputClassName, name, value])
+  }, [type, mask, name, value, onChange, id, inputProps, inputClassName, onChangeDate])
+
   return (
     <div className={classnames('input-wrapper', className, { error: error })}>
       <label className={'label'} htmlFor={id}>

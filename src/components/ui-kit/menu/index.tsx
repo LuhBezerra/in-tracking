@@ -28,6 +28,7 @@ export const MoreActions = ({ icon, title, options, className, children }: MoreA
         {children ||
           (icon && (
             <span title={title} className={'edit-button'}>
+              {/* @ts-ignore */}
               <Icon className={'menu-icon'} />
             </span>
           ))}

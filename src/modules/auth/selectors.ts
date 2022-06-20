@@ -1,3 +1,5 @@
-import { RootState } from '../../store';
+import { RootState } from '../../store'
 
-export const userTokenSelector = (state: RootState) => state.auth.token;
+export const isAuthLoadingSelector = (state: RootState) => state.auth.status === 'loading'
+
+export const hasAuthErrorSelector = (state: RootState) => state.auth.status === 'failed'

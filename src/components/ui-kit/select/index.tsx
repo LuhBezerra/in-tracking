@@ -1,31 +1,31 @@
 import React, { useRef, useCallback, useEffect, useMemo, useState } from 'react'
 import classnames from 'classnames'
-import type { ChangeEvent } from 'react'
 
 import { ArrowDownIcon } from 'assets/icons'
 
 import './styles.scss'
 
-type SelectOption = { value: string; label: string }
+export type SelectOption = { value: string; label: string }
 
+type onChangeType = { target: { name?: string; value: SelectOption['value'] } }
 
 type SelectProps = {
+  name?: string
   options: SelectOption[]
-  onChange: (event: ChangeEvent<HTMLLIElement>) => void
+  onChange: (event: onChangeType) => void
   value: any
-  defaultValue: any
-  label: any
-  className: any
-  placeholder: any
-  labelClassName: any
-  disabled: any
+  label?: any
+  className?: any
+  placeholder?: any
+  labelClassName?: any
+  disabled?: any
 }
 
 export const Select = ({
+  name,
   options,
   onChange,
   value,
-  defaultValue,
   label,
   className,
   placeholder,
@@ -34,15 +34,14 @@ export const Select = ({
 }: SelectProps) => {
   const optionsRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState(
-    value || options.findIndex(item => item.value === defaultValue)
-  )
+  const [selected, setSelected] = useState(value)
 
   const renderValueSelected = useMemo(() => {
-    if (placeholder && selected) {
+    if (placeholder && !selected) {
       return placeholder
     }
-    return options[selected]?.label || ''
+
+    return options?.find(option => option.value === selected)?.label || ''
   }, [options, placeholder, selected])
 
   const onOpenDropdown = useCallback(() => {
@@ -50,13 +49,14 @@ export const Select = ({
   }, [isOpen])
 
   const onClick = useCallback(
-    index => () => {
-      setSelected(index)
+    value => () => {
+      setSelected(value)
+
       if (onChange) {
-        onChange(options[index])
+        onChange({ target: { name, value } })
       }
     },
-    [onChange, options]
+    [onChange, name]
   )
 
   useEffect(() => {
@@ -66,6 +66,12 @@ export const Select = ({
 
     return () => window.removeEventListener('click', onOpenDropdown)
   })
+
+  useEffect(() => {
+    if (value === '') {
+      setSelected(value)
+    }
+  }, [value])
 
   return (
     <div className={classnames('dropdown-wrapper', className)}>
@@ -83,16 +89,15 @@ export const Select = ({
       </div>
       {isOpen && (
         <ul className={'options-container'} ref={optionsRef}>
-          {options.map((item, index) => (
+          {options.map(item => (
             <li
-              id={item}
               role="option"
-              aria-selected={selected === index}
+              aria-selected={selected === item.value}
               className={classnames('option', {
-                selected: selected === index,
+                selected: selected === item.value,
               })}
               key={item.value}
-              onClick={onClick(index)}
+              onClick={onClick(item.value)}
             >
               {item.label}
             </li>

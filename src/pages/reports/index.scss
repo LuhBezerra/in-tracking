@@ -15,14 +15,22 @@
   .content {
     grid-area: content;
     display: grid;
-    grid-template: 1fr / repeat(2, 1fr);
-    row-gap: 3rem;
+    grid-template: repeat(3, auto) / 1fr;
     overflow: hidden;
     padding: 2.6rem;
     margin: 5rem 0;
     background-color: $color-primary-contrast;
     box-shadow: 0 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.08);
     border-radius: $border-radius-lg;
+
+    .title {
+      text-align: center;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      color: black;
+      margin-top: 5rem;
+
+    }
 
     .bar-chart {
       width: 100% !important;

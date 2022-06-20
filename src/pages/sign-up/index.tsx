@@ -1,11 +1,13 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { Button, Input } from 'components/ui-kit'
 import { LogoIcon } from 'assets/icons'
 import { useDispatch, useSelector } from 'hooks/redux'
 import { signUp } from 'modules/auth/actions'
-import { userTokenSelector } from 'modules/auth/selectors'
 import { SignUp as SignUpType } from 'types/authentication'
+import { hasAuthErrorSelector, isAuthLoadingSelector } from 'modules/auth/selectors'
+import { usePrevious } from 'hooks/use-previous'
 
 import type { InputOnChangeEventType } from 'components/ui-kit'
 
@@ -14,8 +16,14 @@ import './index.scss'
 export const SignUp = () => {
   const [form, setForm] = useState<SignUpType>({ name: '', email: '', password: '' })
 
+  const navigate = useNavigate()
+
   const dispatch = useDispatch()
-  const token = useSelector(userTokenSelector)
+
+  const isLoading = useSelector(isAuthLoadingSelector)
+  const hasError = useSelector(hasAuthErrorSelector)
+
+  const wasLoading = usePrevious(isLoading)
 
   const onChange = useCallback((event: InputOnChangeEventType) => {
     setForm(prevState => ({ ...prevState, [event.target.name]: event.target.value }))
@@ -29,11 +37,15 @@ export const SignUp = () => {
     [dispatch, form]
   )
 
-  console.log({ token })
+  useEffect(() => {
+    if (wasLoading && !isLoading && !hasError) {
+      navigate('/')
+    }
+  }, [hasError, isLoading, navigate, wasLoading])
 
   return (
     <section className="login-wrapper">
-      <form className="login-content">
+      <form className="login-content" onSubmit={onSubmit}>
         <div className="logo">
           <LogoIcon />
           <h1 className="logo-text">InTracking</h1>
@@ -44,7 +56,7 @@ export const SignUp = () => {
         <Button className="back" theme="secondary" to="/login">
           Voltar
         </Button>
-        <Button className="login" type="button" onClick={onSubmit}>
+        <Button className="login" type="submit">
           Cadastrar
         </Button>
       </form>

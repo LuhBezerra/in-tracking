@@ -1,67 +1,114 @@
+import { useCallback, useEffect, useState } from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
+
 import { PlusIcon } from 'assets/icons'
 import { Button, Select } from 'components/ui-kit'
-
 import { CategoryCard, TaskCard } from 'components'
 import { useToggle } from 'hooks/use-toggle'
+import { useDispatch, useSelector } from 'hooks/redux'
+import { categoriesSelector } from 'modules/category/selectors'
+import { CategoryModal, TaskModal } from 'components/modal-kit'
+import { getCategories } from 'modules/category/actions'
 
 import './index.scss'
-import { CategoryModal, TaskModal } from 'components/modal-kit'
+import { getStatus } from 'modules/status/actions'
+import { statusSelector } from 'modules/status/selectors'
+import { tasksSelector, totalTasksByCategoriesSelector } from 'modules/task/selectors'
+import { getFilteredTasks, getTasks, getTotalTasksByCategories } from 'modules/task/actions'
+import { timesSelector } from 'modules/time/selectors'
+import { getTimes } from 'modules/time/actions'
+import { FiltersTasks } from 'services/task'
 
 ChartJS.register(ArcElement, Tooltip)
 
-const TASKS_MOCK = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+const FILTERS_INITIAL_STATE = {
+  categoryId: '',
+  statusId: '',
+  timeId: '',
+}
 
-const VALUE_MOCK = [
-  { value: 'lorem ipsum', label: 'Lorem ipsum' },
-  { value: 'lorem ipsum', label: 'Lorem ipsum' },
-]
+const formatOptions = (options: any[]) =>
+  options.map(option => ({ value: option.id, label: option.name }))
 
 export const Home = () => {
   const [isAddTaskModalOpen, onToggleAddTaskModal] = useToggle()
   const [isCategoryModalOpen, onToggleCategoryModal] = useToggle()
 
+  const [filters, setFilters] = useState<FiltersTasks>(FILTERS_INITIAL_STATE)
+
+  const dispatch = useDispatch()
+
+  const categories = useSelector(categoriesSelector)
+  const tasks = useSelector(tasksSelector)
+  const status = useSelector(statusSelector)
+  const times = useSelector(timesSelector)
+  const totalTasksByCategories = useSelector(totalTasksByCategoriesSelector)
+
   const data = {
-    legend: {
-      display: false,
-    },
-    labels: TASKS_MOCK,
-    options: {
-      plugins: {
-          legend: {
-              display: false
-          },
-      }
-  },
+    labels: totalTasksByCategories?.map(task => task.name),
+
     datasets: [
       {
-        label: '# of Votes',
-        data: [12, 19, 3, 5],
-        backgroundColor: [
-          'rgba(58, 190, 255, 1)',
-          'rgba(255, 207, 77, 1)',
-          'rgba(255, 60, 56, 1)',
-          'rgba(139, 195, 74, 1)',
-        ],
+        data: totalTasksByCategories?.map(task => task.total),
+        backgroundColor: totalTasksByCategories?.map(task => task.color),
         borderWidth: 6,
       },
     ],
   }
 
+  const onChange = useCallback(event => {
+    setFilters(prevProps => ({ ...prevProps, [event.target.name]: event.target.value }))
+  }, [])
+
+  const onClear = useCallback(() => {
+    setFilters(FILTERS_INITIAL_STATE)
+    dispatch(getTasks())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getTasks())
+    dispatch(getCategories())
+    dispatch(getTotalTasksByCategories())
+    dispatch(getStatus())
+    dispatch(getTimes())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (Object.values(filters).some(filter => !!filter)) {
+      dispatch(getFilteredTasks(filters))
+    }
+  }, [filters, dispatch])
+
   return (
     <section className="home-wrapper">
       <div className="options-container">
-        <Select className="time" placeholder="Hoje" options={VALUE_MOCK} defaultValue={'aaa'} />
-        <Select className="status" placeholder="Status" options={VALUE_MOCK} defaultValue={'aaa'} />
         <Select
+          name="timeId"
+          className="time"
+          placeholder="Tempo"
+          options={formatOptions(times)}
+          value={filters.timeId}
+          onChange={onChange}
+        />
+        <Select
+          name="statusId"
+          className="status"
+          placeholder="Status"
+          options={formatOptions(status)}
+          value={filters.statusId}
+          onChange={onChange}
+        />
+        <Select
+          name="categoryId"
           className="category"
           placeholder="Categoria"
-          options={VALUE_MOCK}
-          defaultValue={'aaa'}
+          options={formatOptions(categories)}
+          value={filters.categoryId}
+          onChange={onChange}
         />
         <span className="divider" />
-        <Button className="clear-button" type="button">
+        <Button className="clear-button" type="button" onClick={onClear}>
           Limpar
         </Button>
         <Button className="add-button" type="button" onClick={onToggleAddTaskModal as VoidFunction}>
@@ -78,15 +125,15 @@ export const Home = () => {
             <PlusIcon />
           </button>
           <div className="categories-content">
-            {TASKS_MOCK.map(category => (
-              <CategoryCard />
+            {categories?.map(category => (
+              <CategoryCard key={category.id} category={category} />
             ))}
           </div>
         </div>
         <div className="tasks">
           <p className="title">Tarefas</p>
-          {TASKS_MOCK.map((task, index) => (
-            <TaskCard key={index} />
+          {tasks?.map((task, index) => (
+            <TaskCard key={task.id} taskId={task.id} />
           ))}
         </div>
       </div>

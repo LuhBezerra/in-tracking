@@ -1,19 +1,21 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import classnames from 'classnames'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { LogoIcon } from 'assets/icons'
 import { MoreActions, TabBar } from 'components/ui-kit'
 import type { Tab, OptionMoreActions } from 'components/ui-kit'
 
 import './index.scss'
+import { useDispatch } from 'hooks/redux'
+import { logOut } from 'modules/auth/actions'
 
 type HeaderProps = {
   className?: string
 }
 
 const TABS: Tab[] = [
-  { label: 'Home', ordering: '' },
+  { label: 'Home', ordering: '/' },
   { label: 'Relatórios', ordering: 'reports' },
 ]
 
@@ -26,14 +28,23 @@ const getLastPathName = (pathName: string) => {
 export const Header = ({ className }: HeaderProps) => {
   const location = useLocation()
 
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+
+  const onLogOut = useCallback(() => {
+    dispatch(logOut())
+    navigate('/login')
+  }, [dispatch, navigate])
+
   const options = useMemo<OptionMoreActions[]>(
     () => [
       {
-        onSelect: () => {},
+        onSelect: onLogOut,
         label: 'Sair',
       },
     ],
-    []
+    [onLogOut]
   )
 
   return (
@@ -42,7 +53,7 @@ export const Header = ({ className }: HeaderProps) => {
         <LogoIcon />
         <h1 className="logo-text">InTracking</h1>
         <MoreActions className="user-menu" options={options}>
-          <p className="user-menu-text">Olá, Maria</p>
+          <p className="user-menu-text">Olá ...</p>
         </MoreActions>
       </div>
       <TabBar className="tab-bar" tabs={TABS} currentTab={getLastPathName(location.pathname)} />
