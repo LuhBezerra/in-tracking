@@ -47,6 +47,7 @@ export const Reports = () => {
   const standardTaskByTotalTime = useSelector(standardTaskByTotalTimeSelector)
   const standardTaskByWeek = useSelector(standardTaskByWeekSelector)
 
+  console.log({standardTaskByMonth, standardTaskByTotalTime, standardTaskByWeek})
   // ../tasks/export-csv/:token
 
   const doughnutData = {
@@ -60,10 +61,8 @@ export const Reports = () => {
       },
     ],
     options: {
-      plugins: {
-        legend: {
-          display: false,
-        },
+      legend: {
+        position: 'right',
       },
     },
   }
@@ -81,16 +80,16 @@ export const Reports = () => {
   }
 
   const labels = [
-    'Atividades concluídas por mês',
-    'Atividades concluídas por semana',
-    'Tempo (horas) passado nas atividades',
+    'Tempo por atividades concluídas por mês',
+    'Tempo por atividades concluídas por semana',
+    'Tempo passado nas atividades',
   ]
 
   const barData = {
     labels,
     datasets: [
       {
-        data: [20, 5, 12],
+        data: [standardTaskByMonth, standardTaskByWeek, standardTaskByTotalTime],
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
     ],
@@ -126,7 +125,7 @@ export const Reports = () => {
             </>
           }
         />
-        <p className="title">Médias</p>
+        <p className="title">Médias (horas)</p>
         <Bar className="bar-chart" options={options} data={barData} />
       </div>
     </section>

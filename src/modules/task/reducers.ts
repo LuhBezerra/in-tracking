@@ -28,9 +28,9 @@ type State = {
     totalPunctual?: string
     totalOverdue?: string
     totalPending?: string
-    standardTaskByTotalTime?: string
-    standardTaskByMonth?: string
-    standardTaskByWeek?: string
+    standardTaskByTotalTime?: number
+    standardTaskByMonth?: number
+    standardTaskByWeek?: number
     totalTasksByCategories?: [{ name: string; total: string; color: string }]
   }
   status: Status
@@ -93,15 +93,15 @@ const taskSlice = createSlice({
       })
       .addCase(getStandardTaskByTotalTime.fulfilled, (state, action) => {
         state.status = 'idle'
-        state.reports.totalPending = action.payload.total
+        state.reports.standardTaskByTotalTime = Math.abs(action.payload.time)
       })
       .addCase(getStandardTaskByMonth.fulfilled, (state, action) => {
         state.status = 'idle'
-        state.reports.totalPending = action.payload.total
+        state.reports.standardTaskByMonth = Math.abs(action.payload.time)
       })
       .addCase(getStandardTaskByWeek.fulfilled, (state, action) => {
         state.status = 'idle'
-        state.reports.totalPending = action.payload.total
+        state.reports.standardTaskByWeek = Math.abs(action.payload.time)
       })
     getStateStatus(builder, createTask)
     getStateStatus(builder, updateTask)
