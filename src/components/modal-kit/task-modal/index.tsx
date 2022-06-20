@@ -67,7 +67,7 @@ export const TaskModal = ({ taskId, onClose, onConfirm }: TaskModalProps) => {
 
   useEffect(() => {
     if (task) {
-      setForm(task)
+      setForm({ ...task, categoryId: task.categories?.length ? task.categories[0].id : undefined })
     }
   }, [task])
 

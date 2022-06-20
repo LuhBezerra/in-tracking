@@ -49,22 +49,15 @@ const taskSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(createTask.fulfilled, (state, action) => {
-        /* const task = {...action.payload.0, categoryId: action.payload.categories.id}
-        console.log({task}) */
         state.status = 'idle'
         state.tasks.push(action.payload)
       })
       .addCase(updateTask.fulfilled, (state, action) => {
-        const payload = action.payload
+        const payload = action.payload as Task
 
         state.status = 'idle'
-        state.tasks = state.tasks?.map(task => {
-          if (task.id === payload.id) {
-            return humps.camelizeKeys(action.payload)
-          }
-
-          return task
-        }) as Task[]
+        state.tasks = state.tasks.filter(current => current.id !== payload.id)
+        state.tasks.push(humps.camelizeKeys(payload) as Task)
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.status = 'idle'

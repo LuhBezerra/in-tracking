@@ -27,8 +27,11 @@ const categorySlice = createSlice({
         state.categories.push(action.payload) 
       })
       .addCase(updateCategory.fulfilled, (state, action) => {
+        const payload = action.payload
+
         state.status = 'idle'
-        state.categories.push(action.payload) 
+        state.categories = state.categories.filter(category => category.id !== payload.id)
+        state.categories.push(payload)
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
         state.status = 'idle'

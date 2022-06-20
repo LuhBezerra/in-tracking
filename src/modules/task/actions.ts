@@ -16,8 +16,8 @@ export const createTask = createAsyncThunk('CREATE_TASK', async (payload: Task) 
 export const updateTask = createAsyncThunk(
   'UPDATE_TASK',
   async ({ taskId, payload }: UpdateTask) => {
-    await servicesTask.updateTask({ taskId, payload })
-    return payload
+    const response = await servicesTask.updateTask({ taskId, payload })
+    return response.data
   }
 )
 

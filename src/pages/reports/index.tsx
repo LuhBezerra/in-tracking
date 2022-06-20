@@ -83,14 +83,14 @@ export const Reports = () => {
   const labels = [
     'Atividades concluídas por mês',
     'Atividades concluídas por semana',
-    'Tempo passado nas atividades',
+    'Tempo (horas) passado nas atividades',
   ]
 
   const barData = {
     labels,
     datasets: [
       {
-        data: [standardTaskByMonth, standardTaskByWeek, standardTaskByTotalTime],
+        data: [20, 5, 12],
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
     ],

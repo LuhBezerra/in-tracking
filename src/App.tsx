@@ -4,6 +4,7 @@ import { Header } from 'components'
 import { Home, Login, Reports, SignUp } from 'pages'
 
 import './styles/settings.scss'
+import { getToken } from 'utils/get-token'
 
 function App() {
   return (
@@ -12,10 +13,14 @@ function App() {
         <Route
           path="/"
           element={
-            <>
-              <Header />
-              <Home />
-            </>
+            !!getToken() ? (
+              <>
+                <Header />
+                <Home />
+              </>
+            ) : (
+              <Login />
+            )
           }
         />
         <Route
